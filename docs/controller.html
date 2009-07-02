@@ -60,6 +60,16 @@
         }
       </pre>
     <p>Controllers don't have a subset of the DOM ascribed to them, so their default scope is the entire document. To limit the namespace to the view that initiated the request, we use <b>this.view.node</b></p>
+    
+    <h4>Auto-id</h4>
+    <p>Whenever you place an attribute with a name that contains "_id" on a listened object, the value of that attribute will be accesible in the request object like so:</p>
+    <pre>
+    'another_action': function(){
+      $m.MyModel.find(this.model_id, this.publish)
+    },
+    </pre>
+    
+    
     <h4><a href='index.html'>Back</a> or continue to the <a href ='model.html'>Model</a>
   </body>
 </html>
