@@ -2,7 +2,8 @@
   <head>
     <title> Kiwi - docs - The Request </title>
   </head>
-  <body>
+  <body>     
+    <img src='logo_small.gif' style='position:absolute;top:20px;right:10px'>
     <h1> Kiwi Documentation (v. 0.1.0)</h1>
     <hr>
     <a href='index.html'>Index</a>
@@ -16,6 +17,10 @@
       <li><i>target</i> - the DOM element whose listener triggered the current request, as a jQuery object.</li>
       <li>Plus any <i>"_id"</i> properties set by auto-id (check bottom of the section on the <a href='controller.html'>controller</a>)
     </ul>
+    <h3> Stopping Execution </h3>
+    <p> If at any point before or between ajax calls you need to stop the normal flow of the request, simply throw "halt":</p>
+    <pre>   throw 'halt'</pre>
+    <p> You can do this in either views or controllers </p>
     <h4><a href='index.html'>Back</a>
   </body>
 </html>

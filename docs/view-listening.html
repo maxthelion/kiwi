@@ -2,7 +2,8 @@
   <head>
     <title> Kiwi - docs - View: Listening </title>
   </head>
-  <body>
+  <body>     
+    <img src='logo_small.gif' style='position:absolute;top:20px;right:10px'>
     <h1> Kiwi Documentation (v. 0.1.0)</h1>
     <hr>
     <a href='index.html'>Back</a>
@@ -64,8 +65,10 @@
         <li><i>subscribe</i> (default set to true, can be true or false). Tells the controller to publish its data to the current view. If we don't want the current view to receive any data after the ajax call is over, set to false.</a></li><br>
         <li><i>on_error</i>(default set to null). It is either null or an <a href='errors.html'>error object</a> with http error codes as keys and functions as values. The functions are executed whenever the corresponding key matches the status code of an http response returning to a controller to which the view is subscribed. Please see the section on <a href='errors.html'>errors</a> for details.</li><br>
         <li><i>unbind</i> (default set to true, can be true or false) If true, the listener becomes unbound from the target object until the ajax call is returned. Useful to prevent repeated server calls </li><br>
+        <li><i>prevent_default</i> (default set to true, can be true or false) If true, the listener will prevent the default behavior of the listened object. This is the same as returning <i>false</i> in a callback bound to a jQuery event.</li><br>
         <li><i>show_loader</i> (default set to true, can be true or false) If a node with class 'loader' has been defined within the view's domain, it will be rendered visible once an ajax call is trigged in that view. It will remain visible until <i>all</i> simultaneously running ajax calls have returned.</li><br>
-        <li><i>after_each_ajax_call</i> (default is null, takes a function) Executes the passed function whenever each ajax call triggered by the listener in question returns. The function gets no parameters.</li>
+        <li><i>before_each_ajax_call</i> (default is null, takes the name of a view function) Executes the specified function just before an ajax call triggered by ths listener is fired.</li><br>
+        <li><i>after_each_ajax_call</i> (default is null, takes the name of a view function) Executes the named function whenever each ajax call triggered by the listener in question returns.</li>
       </ul>
     <h4><a href='index.html'>Back</a> or continue to the <a href ='controller.html'>Controller</a>
   </body>

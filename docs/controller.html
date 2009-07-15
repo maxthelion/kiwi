@@ -2,11 +2,12 @@
   <head>
     <title> Kiwi - docs - Controller </title>
   </head>
-  <body>
+  <body>     
+    <img src='logo_small.gif' style='position:absolute;top:20px;right:10px'>
     <h1> Kiwi Documentation (v. 0.1.0)</h1>
     <hr>
     <a href='index.html'>Index</a>
-    <h2> The Controller </h2>
+    <h2> The Controller </h2>s
     Once a request has been initiated by one of the views listeners it is the controller's job to fire the appropriate http request (by means of a <a href='model.html'>model</a> call) and decide what happens to the data that is returned. The controller will also collect from the DOM any data that needs to get sent to the server.
     <h3> Defining a Controller</h3>
     Defining a controller is very similar to defining a view. We use the $c function which takes as arguments the name of the controller and an object with action names as keys and functions as values. For example:</p>

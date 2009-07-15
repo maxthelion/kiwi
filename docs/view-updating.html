@@ -2,7 +2,8 @@
   <head>
     <title> Kiwi - docs - View: Updating </title>
   </head>
-  <body>
+  <body>     
+    <img src='logo_small.gif' style='position:absolute;top:20px;right:10px'>
     <h1> Kiwi Documentation (v. 0.1.0)</h1>
     <hr>
     <a href='index.html'>Index</a>
@@ -81,20 +82,20 @@
     }
   </pre>
   <p>Kiwi doesn't like this. Kiwi thinks that the best kind of language to define DOM structure is a <i>markup</i> language, and that the best place to do it is your templates, not your javascript.</p>
-  <p>This is why Kiwi uses <i>sub-partials</i>. What is a sub-partial? It is a partial within a partial. This might sound confusing at first, but it really isn't. We'll explain.</p>
-  <h3>Sub-Partials</h3>
-  <p>Those coming from Rails know what a partial is. It is a re-usable template, intended to be inserted accross views. Kiwi's views, however, are not full html pages as Rails views. They are reusable javascript objects that have control over determined portion of the DOM. This portion of the DOM will be more often than not defined as a partial (Rails or equivalent). But what happens to even smaller subsets of the DOM, all with similar structure, that repeat accross our partial? Think, for example, of a twitter stream. The whole stream might be a partial, while each tweet is a node with the same structure as the others, but different data.</p>
-  <p>What happens is that usually it will be these child nodes of our main partial, what we will call a <i>sub-partial</i>, what end up getting rendered or modified as the result of an ajax call. A way of doing this is show above, in our function <i>render_new_messy</i>, this is, we construct the node on the fly with javascript. But this tends to result in unreadable code and painful debugging: the structure of our sub-partial is not transparent in the javascript.</p>
-  <p>Kiwi takes another appraoch.</p>
+  <p>This is why Kiwi uses <i>partials</i>. 
+  <h3>Partials</h3>
+  <p>Those coming from Rails know what a partial is. It is a reusable template, intended to be reused within and accross views. Kiwi's views, however, are not full html pages as Rails views. They are javascript objects that have control over determined portion of the DOM. This portion of the DOM will be more often than not defined as a partial (Rails or equivalent). Correspondingly, a partial in Kiwi is a reusable template within the portion of the DOM that our view is controlling. From a Rails perspective, a partial within a partial. For the sake of clarity we will refer to a Rails type partial as a 'backend partial'.
+    
+    <p>Very often we want to insert data retrieved with ajax into a predefined DOM structure. A way of doing this is shown above, in our function <i>render_new_messy</i>, this is, we construct the node on the fly with javascript. But this tends to result in unreadable code and painful debugging: the structure of our partial is not transparent in the javascript.</p>
   
   <h3>Rendering - Redux</h3>
-  <p>Kiwi works best if you define the structure of your sub-partials within your partial template itself. When you initialize a view with a node, Kiwi will look at the next node in the same level as the one you provided, and check if it has the class "sub-partials"
+  <p>Kiwi works best if you define the structure of your Kiwi partials in your backend partial. When you initialize a view with a node, Kiwi will look at the next node in the same level as the one you provided, and check if it has the class "partials"
     <pre>
       &lt;div id='main-node'&gt;
         ...
         ...
       &lt;/div&gt;
-      &lt;div class='sub-partials'&gt;        
+      &lt;div class='partials'&gt;        
         &lt;div class='a-user'&gt;
           &lt;div&gt;
             &lt;a class = 'url' href ='#'&gt;
@@ -106,12 +107,12 @@
         ...
       &lt;/div&gt;        
     </pre>
-    <p>If it does then it will look for all its children that have a class name. For each one that does, a property named after that class will be added to the view. Accessing this property will return a jQuery object cloned out of the sub-partial. So in this case:</p>
+    <p>If it does then it will look for all its children that have a class name. For each one that does, a property named after that class will be added to the view. Accessing this property will return a jQuery object cloned out of the partial. So in this case:</p>
     <pre>
       this['a-user']
     </pre>
     <p>Will return a jQuery object with the structure defined in the markup above</p>
-    <p>Additionally, it will also add the method <i>render_with</i> to this jQuery object. This method takes an object containing the data you want to render inside your sub-partial. Data is matched to nodes as follows</p>
+    <p>Additionally, it will also add the method <i>render_with</i> to this jQuery object. This method takes an object containing the data you want to render inside your partial. Data is matched to nodes as follows</p>
     <ul>
       <li>Any node except of the IMG and A kind with class X will get the jQuery <i>text</i>(Y) method called on it, where Y is the value corresponding to the key X in the argument of <i>render_with</i></li>
       <li>If the node is an IMG with class X, then the <i>src</i> attribute will be set to Y.<li>
