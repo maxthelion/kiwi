@@ -64,4 +64,4 @@ Kiwi is good for this and other things. It can be improved in many ways, and I w
 
 Check out the official docs at:
 
-http://robertothais.com/kiwi_docs[http://robertothais.com/kiwi_docs]
+http://robertothais.com/kiwi_docs
