@@ -31,44 +31,35 @@ The http requests that get fired are, respectively:
   http://domain.com/posts/1/comments (GET)
   http://domain.com/posts/1/comments/12 (DELETE)
 
-== Controllers publish to views
-
-When a controller action executes a model call, all views that have subscribed to it get a copy of the data that came back from the server.
-
-A simple controller:
-  
-  $c('Comments', {
-    get: function(){
-      var post_id = this.view.post_id
-      var options = {
-        limit: this.view.limit,
-        offset: this.view.offset
-      }
-      $m.Post.find(post_id).comments.find('all', options, this.publish)
-    }
-  })
-  
-And a view
-
-  $v('CommentsList', {
-    listeners: {
-      '.more_button click': 'Comments.get'
-    },
-    initialize_with: function(){
-      this.limit = 10
-      this.offset = 0
-    }
-    update: function(r){
-      var view = this
-      this.offset += 10
-      $.each(r.data, function(){
-        view.partials.comment.render_with(r.data).appendTo($".comment_body")
-      })
-    }
-  })
 
 == HTTP error codes rule
 
-  
-  
-  
+If our server returns a different status code for each server error (or error class), we can easily react differently in the front end:
+
+In a view:
+
+  $v('CommentList', {
+    listeners: {
+      '.more click': {action: 'Comments.get', on_error: 'errors'}
+    },
+    errors: {
+      404: function(){
+        alert("Sorry, not found!")
+      },
+      403: function(status_code, message){
+        alert(message)
+      }
+    }
+  })
+
+We can also define a catch all error handler in case none of them are defined in our view:
+
+  $k.options.global_error_handler.base = function(){
+    alert("You got some random error!")
+  }
+
+Kiwi is good for this and other things. If you like this, please fork it and help me out :)
+
+Check out the official docs at:
+
+  http://robertothais.com/kiwi_docs
