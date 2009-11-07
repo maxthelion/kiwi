@@ -11,7 +11,7 @@ We can define a couple of models
      has: {'comments':'Comment'}
    })
  
- $m('Comment'{resource: 'comments'})
+ $m('Comment', {resource: 'comments'})
 
 So now we can say, in a controller
 
